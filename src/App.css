@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
+
+.App{
+  font-family: 'Nunito', sans-serif;
+}
+
+.header {
+  padding: 20px;
+  text-align: center;
+  background:rgb(168, 132, 86);
+  color: white;
+}
+
+.loader {
+  border: 16px solid #f3f3f3; 
+  border-top: 16px solid #a07527; 
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+  position: fixed;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.reddit-container{
+  display: flex;
+  background:rgb(226, 219, 211);
+  position:relative;
+  width: 100%;
+  height: 100%;
+}
+
+.subreddit-container {
+  flex: 10%;
+  background-color: #f1f1f1;
+  padding: 20px;
+  font-weight: 700;
+  flex-grow: 1;
+}
+ 
+.ul-item{
+  font-weight: 600;
+  text-transform: uppercase;
+  color:rgb(70, 55, 34);
+}
+
+.outerContainer{
+   width: 100%;  
+}
+
+.nolist {
+  list-style: none ;
+}
+
+li{
+  padding:20px 5px 10px 20px;
+  margin:3px;
+  box-shadow: slategrey;
+  border-image: linear-gradient(45deg, rgba(100,57,242,1) 0%, rgba(242,55,55,1) 100%);
+  font-weight: 500;
+}
+
+.post-li{
+    font-size: 0.9rem;
+    color:rgb(92, 62, 23);
+}
+
+li:hover{
+  background-color: rgb(209, 203, 195);
+  box-shadow: slategrey; 
+}
+
+.panel{
+  margin-left: 10px;
+  margin-top: 20px;
+  padding:10px;
+  width: 90%;
+  box-shadow: 3px 2px 2px 1px rgb(173, 174, 175);
+  background-color: rgb(218, 197, 171);
+  color:rgb(92, 62, 23);
+  font-weight: 500;
+  text-align: center;
+  font-size: .8rem;
+}
+
+p{
+  line-height: 1.2;
+}
+
+.button {
+  font-size: 0.7rem;
+  background: #f17b77;
+  padding-bottom:3px;
+  margin-bottom: 10px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  .row, .navbar {   
+    flex-direction: column;
+  }
+}
+
