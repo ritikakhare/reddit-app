@@ -19,7 +19,7 @@ class Reddit extends Component {
   } 
 
   getPostsForSubReddit(redditName){
-    this.props.getPosts(redditName);
+    if(redditName !== this.state.selectedRedditName) this.props.getPosts(redditName);
     this.setState({selectedRedditName:redditName});
   }
 
