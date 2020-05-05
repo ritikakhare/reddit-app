@@ -1,65 +1,89 @@
-import React, { Component } from 'react';
-import '../App.css';
-import * as actionType from './../store/actions';
-import { connect } from 'react-redux';
-import SubReddit from './../components/SubReddit';
-import Posts from './../components/Posts';
+import React, { Component, Fragment } from "react";
+import "../App.css";
+import * as actionType from "./../store/actions";
+import { connect } from "react-redux";
+import SubReddit from "./../components/SubReddit";
+import Posts from "./../components/Posts";
 
 class Reddit extends Component {
-  constructor(){
+  constructor() {
     super();
-    this.state={
-      selectedRedditName:false
-    }
-    this.getPostsForSubReddit=this.getPostsForSubReddit.bind(this);
+    this.state = {
+      selectedRedditName: false,
+      searchText: "",
+    };
+    this.getPostsForSubReddit = this.getPostsForSubReddit.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.initSubReddits();
-  } 
-
-  getPostsForSubReddit(redditName){
-    if(redditName !== this.state.selectedRedditName) this.props.getPosts(redditName);
-    this.setState({selectedRedditName:redditName});
   }
 
-  render(){
+  getPostsForSubReddit(redditName) {
+    if (redditName !== this.state.selectedRedditName)
+      this.props.getPosts(redditName);
+    this.setState({ selectedRedditName: redditName });
+  }
+
+  handleSearchText = (e) => {
+    this.setState({ searchText: e.target.value });
+    if (e.charCode === 13) this.props.search(e.target.value);
+  };
+
+  handleSearch = () => {
+    if (this.state.searchText) this.props.search(this.state.searchText);
+    else this.props.initSubReddits();
+  };
+
+  render() {
     return (
-      <div className="reddit-container">
-        {this.props.error && <div>Please try after sometime</div>}
-        {this.props.loading && <div className="loader"></div>}
-        <SubReddit 
-          className="subreddit-container" 
-          selectedRedditName={this.state.selectedRedditName} 
-          subreddits={this.props.subreddits} 
-          click={this.getPostsForSubReddit}>
-        </SubReddit>
-        <Posts 
-          className="posts-container" 
-          posts={this.props.posts}>
-        </Posts> 
-      </div>   
-    )
-  } 
-}
-
-const mapStateToProps=(state)=>{
-  const { subReddits,posts,error,loading } = state;
-  return {
-    subreddits:subReddits,
-    error:error,
-    posts:posts,
-    loading:loading,
+      <Fragment>
+        {!this.props.loading && (
+          <div className="search">
+            <input
+              type="text"
+              onChange={(e) => this.setState({ searchText: e.target.value })}
+            ></input>
+            <input
+              type="button"
+              value="Search"
+              className="searchButton"
+              onClick={this.handleSearch}
+            ></input>
+          </div>
+        )}
+        <div className="reddit-container">
+          {this.props.error && <div>Please try after sometime</div>}
+          {this.props.loading && <div className="loader"></div>}
+          <SubReddit
+            className="subreddit-container"
+            selectedRedditName={this.state.selectedRedditName}
+            subreddits={this.props.subreddits}
+            click={this.getPostsForSubReddit}
+          ></SubReddit>
+          <Posts className="posts-container" posts={this.props.posts}></Posts>
+        </div>
+      </Fragment>
+    );
   }
 }
 
-const mapDispatchToProps= dispatch=>{
+const mapStateToProps = (state) => {
+  const { subReddits, posts, error, loading } = state;
   return {
-    getPosts: (redditName)=>dispatch(actionType.getPosts(redditName)),
-    initSubReddits:()=>dispatch(actionType.initSubReddits())
-  }
-} 
+    subreddits: subReddits,
+    error: error,
+    posts: posts,
+    loading: loading,
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(Reddit);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getPosts: (redditName) => dispatch(actionType.getPosts(redditName)),
+    initSubReddits: () => dispatch(actionType.initSubReddits()),
+    search: (searchText) => dispatch(actionType.search(searchText)),
+  };
+};
 
-
+export default connect(mapStateToProps, mapDispatchToProps)(Reddit);

@@ -1,9 +1,8 @@
-import React, {Component, Fragment } from 'react';
-import Reddit from './container/Reddit';
+import React, { Component, Fragment } from "react";
+import Reddit from "./container/Reddit";
 
 class App extends Component {
- 
-  render(){
+  render() {
     return (
       <Fragment>
         <div className="header">
@@ -11,9 +10,8 @@ class App extends Component {
         </div>
         <Reddit className="reddit-container"></Reddit>
       </Fragment>
-      )
-    } 
+    );
   }
+}
 
 export default App;
-
