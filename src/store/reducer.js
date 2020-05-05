@@ -13,6 +13,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         subReddits: action.subReddits,
+        posts:[],
         loading: false,
         error: false,
       };
