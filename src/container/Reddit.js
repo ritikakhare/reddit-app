@@ -25,11 +25,6 @@ class Reddit extends Component {
     this.setState({ selectedRedditName: redditName });
   }
 
-  handleSearchText = (e) => {
-    this.setState({ searchText: e.target.value });
-    if (e.charCode === 13) this.props.search(e.target.value);
-  };
-
   handleSearch = () => {
     if (this.state.searchText) this.props.search(this.state.searchText);
     else this.props.initSubReddits();
